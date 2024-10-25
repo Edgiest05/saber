@@ -97,8 +97,8 @@ class TranslationsHomeEn {
 	late final TranslationsHomeNewFolderEn newFolder = TranslationsHomeNewFolderEn.internal(_root);
 	late final TranslationsHomeRenameNoteEn renameNote = TranslationsHomeRenameNoteEn.internal(_root);
 	late final TranslationsHomeMoveNoteEn moveNote = TranslationsHomeMoveNoteEn.internal(_root);
-
-	/// en: 'Delete note'
+	String get selectAllNotes => 'Select all';
+	String get deselectAllNotes => 'Deselect all';
 	String get deleteNote => 'Delete note';
 
 	late final TranslationsHomeRenameFolderEn renameFolder = TranslationsHomeRenameFolderEn.internal(_root);

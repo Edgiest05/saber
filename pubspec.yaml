@@ -146,6 +146,8 @@ dependencies:
   pdfrx: ^1.0.85
   path: ^1.9.1
 
+  wakelock_plus: ^1.2.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

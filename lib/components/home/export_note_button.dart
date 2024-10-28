@@ -7,6 +7,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:saber/components/nextcloud/spinning_loading_icon.dart';
 import 'package:saber/data/editor/editor_core_info.dart';
 import 'package:saber/data/editor/editor_exporter.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/i18n/strings.g.dart';
 
@@ -28,6 +29,7 @@ class _ExportNoteButtonState extends State<ExportNoteButton> {
 
   Future exportFile(List<String> selectedFiles, bool exportPdf) async {
     setState(() => _currentlyExporting = true);
+    WakelockPlus.enable();
 
     final files = <ArchiveFile>[];
     for (String filePath in selectedFiles) {
@@ -74,6 +76,7 @@ class _ExportNoteButtonState extends State<ExportNoteButton> {
       );
     }
 
+    WakelockPlus.disable();
     setState(() => _currentlyExporting = false);
   }
 

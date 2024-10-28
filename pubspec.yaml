@@ -154,6 +154,8 @@ dependencies:
   sentry_flutter: ^9.5.0
   sentry_logging: ^9.5.0
 
+  wakelock_plus: ^1.2.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -77,6 +77,7 @@ class TranslationsHomeEn {
 	String get selectAllNotes => 'Select all';
 	String get deselectAllNotes => 'Deselect all';
 	String get deleteNote => 'Delete note';
+	late final TranslationsHomeSortNamesEn sortNames = TranslationsHomeSortNamesEn.internal(_root);
 	late final TranslationsHomeRenameFolderEn renameFolder = TranslationsHomeRenameFolderEn.internal(_root);
 	late final TranslationsHomeDeleteFolderEn deleteFolder = TranslationsHomeDeleteFolderEn.internal(_root);
 }
@@ -309,6 +310,19 @@ class TranslationsHomeMoveNoteEn {
 	String renamedTo({required Object newName}) => 'Note will be renamed to ${newName}';
 	String get multipleRenamedTo => 'The following notes will be renamed:';
 	String numberRenamedTo({required Object n}) => '${n} notes will be renamed to avoid conflicts';
+}
+
+// Path: home.sortNames
+class TranslationsHomeSortNamesEn {
+	TranslationsHomeSortNamesEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get alphabetical => 'Alphabetical';
+	String get lastModified => 'Last Modified';
+	String get sizeOnDisk => 'Size';
+	String get increasing => 'Increasing';
 }
 
 // Path: home.renameFolder

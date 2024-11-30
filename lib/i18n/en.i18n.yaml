@@ -51,6 +51,11 @@ home:
   selectAllNotes: Select all
   deselectAllNotes: Deselect all
   deleteNote: Delete note
+  sortNames: 
+    alphabetical: Alphabetical
+    lastModified: Last Modified
+    sizeOnDisk: Size
+    increasing: Increasing
   renameFolder: 
     renameFolder: Rename folder
     folderName: Folder name

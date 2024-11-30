@@ -51,6 +51,11 @@ home:
   selectAllNotes: Seleziona tutto
   deselectAllNotes: Deseleziona tutto
   deleteNote: Elimina nota
+  sortNames: 
+    alphabetical: Alfabetico
+    lastModified: Ultima Modifica
+    sizeOnDisk: Dimensioni
+    increasing: Crescente
   renameFolder: 
     renameFolder: Rinomina cartella
     folderName: Nome cartella

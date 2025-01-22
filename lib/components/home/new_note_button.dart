@@ -6,6 +6,7 @@ import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/data/routes.dart';
 import 'package:saber/i18n/strings.g.dart';
 import 'package:saber/pages/editor/editor.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class NewNoteButton extends StatefulWidget {
   const NewNoteButton({
@@ -61,46 +62,82 @@ class _NewNoteButtonState extends State<NewNoteButton> {
           onTap: () async {
             final result = await FilePicker.platform.pickFiles(
               type: FileType.any,
-              allowMultiple: false,
+              allowMultiple: true,
               withData: false,
             );
             if (result == null) return;
 
-            final filePath = result.files.single.path;
-            final fileName = result.files.single.name;
-            if (filePath == null) return;
+            if (result.files.length > 1) {
+              bool foundPdf = false;
+              WakelockPlus.enable();
+              for (var elem in result.files) {
+                final filePath = elem.path;
+                if (filePath == null) continue;
 
-            if (filePath.endsWith('.sbn') ||
-                filePath.endsWith('.sbn2') ||
-                filePath.endsWith('.sba')) {
-              final path = await FileManager.importFile(
-                filePath,
-                '${widget.path ?? ''}/',
-              );
-              if (path == null) return;
-              if (!context.mounted) return;
-
-              context.push(RoutePaths.editFilePath(path));
-            } else if (filePath.endsWith('.pdf')) {
-              if (!Editor.canRasterPdf) return;
-              if (!mounted) return;
-
-              final fileNameWithoutExtension =
-                  fileName.substring(0, fileName.length - '.pdf'.length);
-              final sbnFilePath =
-                  await FileManager.suffixFilePathToMakeItUnique(
-                '${widget.path ?? ''}/$fileNameWithoutExtension',
-              );
-              if (!context.mounted) return;
-
-              context.push(RoutePaths.editImportPdf(sbnFilePath, filePath));
-            } else {
-              if (context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text(t.home.invalidFormat),
-                ));
+                if (filePath.endsWith('.sbn') ||
+                    filePath.endsWith('.sbn2') ||
+                    filePath.endsWith('.sba')) {
+                  final path = await FileManager.importFile(
+                    filePath,
+                    '${widget.path ?? ''}/',
+                  );
+                  if (path == null) continue;
+                  if (!context.mounted) continue;
+                } else if (filePath.endsWith('.pdf') && !foundPdf) {
+                  foundPdf = true;
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text('PDFs can only be imported singularly'),
+                    ));
+                  }
+                } else {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(t.home.invalidFormat),
+                    ));
+                  }
+                  WakelockPlus.disable();
+                  throw 'Invalid file type';
+                }
               }
-              throw 'Invalid file type';
+              WakelockPlus.disable();
+            } else {
+              final filePath = result.files.single.path;
+              final fileName = result.files.single.name;
+              if (filePath == null) return;
+
+              if (filePath.endsWith('.sbn') ||
+                  filePath.endsWith('.sbn2') ||
+                  filePath.endsWith('.sba')) {
+                final path = await FileManager.importFile(
+                  filePath,
+                  '${widget.path ?? ''}/',
+                );
+                if (path == null) return;
+                if (!context.mounted) return;
+
+                context.push(RoutePaths.editFilePath(path));
+              } else if (filePath.endsWith('.pdf')) {
+                if (!Editor.canRasterPdf) return;
+                if (!mounted) return;
+
+                final fileNameWithoutExtension =
+                    fileName.substring(0, fileName.length - '.pdf'.length);
+                final sbnFilePath =
+                    await FileManager.suffixFilePathToMakeItUnique(
+                  '${widget.path ?? ''}/$fileNameWithoutExtension',
+                );
+                if (!context.mounted) return;
+
+                context.push(RoutePaths.editImportPdf(sbnFilePath, filePath));
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text(t.home.invalidFormat),
+                  ));
+                }
+                throw 'Invalid file type';
+              }
             }
           },
         ),

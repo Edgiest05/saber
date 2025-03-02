@@ -56,3 +56,8 @@ Saber-Linux-Portable.tar.gz
 .sentry-native/
 sentry.properties
 sentry-wizard
+
+# Generated
+**/generated_*
+**/Generated*
+pubspec.lock

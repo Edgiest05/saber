@@ -62,8 +62,7 @@ class _RecentPageState extends State<RecentPage> {
 
   @override
   void initState() {
-    findRecentlyAccessedNotes()
-        .then((_) => SortNotes.sortNotes(filePaths, forced: true));
+    findRecentlyAccessedNotes();
     fileWriteSubscription =
         FileManager.fileWriteStream.stream.listen(fileWriteListener);
     selectedFiles.addListener(_setState);
@@ -142,12 +141,6 @@ class _RecentPageState extends State<RecentPage> {
                 ),
                 actions: [
                   const SyncingButton(),
-                  SortButton(
-                    callback: () => {
-                      SortNotes.sortNotes(filePaths),
-                      setState(() {}),
-                    },
-                  ),
                 ],
               ),
             ),
@@ -216,8 +209,7 @@ class _RecentPageState extends State<RecentPage> {
                 allFiles: filePaths,
                 selectAll: () => {
                   selectedFiles.value.clear(),
-                  for (String file in filePaths)
-                    selectedFiles.value.add(file),
+                  for (String file in filePaths) selectedFiles.value.add(file),
                   setState(() {}),
                 },
                 deselectAll: () => selectedFiles.value = [],

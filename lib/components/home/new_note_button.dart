@@ -117,10 +117,6 @@ class _NewNoteButtonState extends State<NewNoteButton> {
                 if (!context.mounted) return;
 
                 context.push(RoutePaths.editFilePath(path));
-              } else if (filePath.endsWith('.pdf')) {
-                if (!Editor.canRasterPdf) return;
-                if (!mounted) return;
-                context.push(RoutePaths.editFilePath(path));
               } else if (filePath.toLowerCase().endsWith('.pdf')) {
                 if (!Editor.canRasterPdf) return;
                 if (!mounted) return;

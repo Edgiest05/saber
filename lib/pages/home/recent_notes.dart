@@ -10,7 +10,6 @@ import 'package:saber/components/home/move_note_button.dart';
 import 'package:saber/components/home/new_note_button.dart';
 import 'package:saber/components/home/rename_note_button.dart';
 import 'package:saber/components/home/select_all_button.dart';
-import 'package:saber/components/home/sort_button.dart';
 import 'package:saber/components/home/syncing_button.dart';
 import 'package:saber/components/home/welcome.dart';
 import 'package:saber/data/file_manager/file_manager.dart';
@@ -139,8 +138,8 @@ class _RecentPageState extends State<RecentPage> {
                   titlePadding: EdgeInsetsDirectional.only(
                       start: cupertino ? 0 : 16, bottom: 16),
                 ),
-                actions: [
-                  const SyncingButton(),
+                actions: const [
+                  SyncingButton(),
                 ],
               ),
             ),

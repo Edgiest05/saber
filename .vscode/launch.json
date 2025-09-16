@@ -7,19 +7,52 @@
         {
             "name": "Saber",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "-d",
+                "d79cd0fa39ee"
+            ]
+        },
+        {
+            "name": "Saber no-build (debug mode)",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "-d",
+                "d79cd0fa39ee",
+                "--no-build"
+            ]
         },
         {
             "name": "Saber (profile mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile"
+            "flutterMode": "profile",
+            "args": [
+                "-d",
+                "d79cd0fa39ee"
+            ]
+        },
+        {
+            "name": "Saber no-build (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "-d",
+                "d79cd0fa39ee",
+                "--no-build"
+            ]
         },
         {
             "name": "Saber (release mode)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "release"
+            "flutterMode": "release",
+            "args": [
+                "-d",
+                "d79cd0fa39ee"
+            ]
         }
     ]
 }

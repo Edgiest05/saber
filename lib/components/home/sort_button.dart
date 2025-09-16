@@ -14,8 +14,8 @@ class SortNotes {
     _sortNotesLastModified,
     _sortNotesSize,
   ];
-  static final PlainPref<int> _sortFunctionIdx = Prefs.sortFunctionIdx;
-  static final PlainPref<bool> _isIncreasingOrder = Prefs.isSortIncreasing;
+  static final _sortFunctionIdx = stows.sortFunctionIdx;
+  static final _isIncreasingOrder = stows.isSortIncreasing;
 
   static bool _isNeeded = true;
   static bool get isNeeded => _isNeeded;
@@ -49,7 +49,11 @@ class SortNotes {
   }
 
   static void _sortNotesAlpha(List<String> filePaths, bool isIncreasing) {
-    filePaths.sort((a, b) => a.split('/').last.compareTo(b.split('/').last));
+    filePaths.sort((a, b) => a
+        .toLowerCase()
+        .split('/')
+        .last
+        .compareTo(b.toLowerCase().split('/').last));
     if (!isIncreasing) _reverse(filePaths);
   }
 
@@ -160,17 +164,23 @@ class _SortButtonDialogState extends State<_SortButtonDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              for (int idx = 0; idx < sortNames.length; idx++)
-                RadioListTile<int>(
-                  title: Text(sortNames[idx]),
+              RadioGroup(
                   onChanged: (int? newValue) => {
-                    SortNotes.sortFunctionIdx = newValue!,
-                    setState(() {}),
-                    // Navigator.pop(context),
-                  },
+                        SortNotes.sortFunctionIdx = newValue!,
+                        setState(() {}),
+                        // Navigator.pop(context),
+                      },
                   groupValue: SortNotes.sortFunctionIdx,
-                  value: idx,
-                ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (int idx = 0; idx < sortNames.length; idx++)
+                        RadioListTile<int>(
+                          title: Text(sortNames[idx]),
+                          value: idx,
+                        ),
+                    ],
+                  )),
               CheckboxListTile(
                   controlAffinity: ListTileControlAffinity.leading,
                   title: Text(t.home.sortNames.increasing),
